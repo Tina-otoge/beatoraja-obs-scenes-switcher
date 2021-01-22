@@ -1,6 +1,10 @@
 # beatoraja-obs-scenes-switcher
 Automatically switch OBS scene when beatoraja changes screen
 
+# Example
+
+See video https://youtu.be/qqTZFtbo8iA?t=26
+
 # Installing
 
 - Download the souce code by clicking on the green "Code" button up there and extract it anywhere you want
