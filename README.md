@@ -3,7 +3,7 @@ Automatically switch OBS scene when beatoraja changes screen
 
 # Example
 
-See video https://youtu.be/qqTZFtbo8iA?t=26
+See video https://youtu.be/qqTZFtbo8iA?t=72
 
 # Installing
 
