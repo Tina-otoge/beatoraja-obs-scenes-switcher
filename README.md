@@ -6,7 +6,7 @@ Automatically switch OBS scene when beatoraja changes screen
 - If you don't already have it, install the OBS Websocket plugin
 > https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/
 
-- If you don't already have it, install Python 3
+- If you don't already have it, install Python 3  
 Windows users:
 > https://www.microsoft.com/en-us/p/python-39/9p7qfqmjrfp7
 
