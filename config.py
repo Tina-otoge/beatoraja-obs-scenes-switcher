@@ -2,7 +2,7 @@
 import beatoraja
 
 # REPLACE WITH YOUR OBS WEBSOCKETS SETTINGS (dont need to if you use default settings)
-WEBSOCKET_HOST = 'localhost'
+WEBSOCKET_HOST = '127.0.0.1'
 WEBSOCKET_PORT = 4444
 WEBSOCKET_PASSWORD = 'password'
 
