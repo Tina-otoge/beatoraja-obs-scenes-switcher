@@ -1,19 +1,33 @@
+import asyncio
+import simpleobsws
 import subprocess
-from obswebsocket import obsws, requests as obsrequests
 
 import beatoraja
 import config
 
 
-def handle(socket, scene: beatoraja.Scene):
-    name = config.OBS_SCENES.get(scene, None)
-    if name is None or socket.call(obsrequests.GetCurrentScene()).getName() == name:
+async def handle(socket, scene: beatoraja.Scene):
+    target_scene_name = config.OBS_SCENES.get(scene, None)
+    get_scene_request = simpleobsws.Request("GetCurrentProgramScene")
+    response = await socket.call(get_scene_request)
+    if not response.ok():
+        print("Couldn't retrieve current scene!")
         return
-    socket.call(obsrequests.SetCurrentScene(name))
 
-def run():
-    socket = obsws(config.WEBSOCKET_HOST, config.WEBSOCKET_PORT, config.WEBSOCKET_PASSWORD)
-    socket.connect()
+    current_scene = response.responseData["currentProgramSceneName"]
+    if target_scene_name is None or current_scene == target_scene_name:
+        return
+
+    set_scene_request = simpleobsws.Request("SetCurrentProgramScene", {"sceneName": target_scene_name})
+    await socket.call(set_scene_request)
+
+
+async def run():
+    url = f"ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}"
+    socket = simpleobsws.WebSocketClient(url, config.WEBSOCKET_PASSWORD)
+    await socket.connect()
+    await socket.wait_until_identified()
+
     process = subprocess.Popen(config.GAME_PATH, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while True:
         output = process.stdout.readline()
@@ -23,7 +37,9 @@ def run():
         for search, scene in beatoraja.SCENE_MATCHES.items():
             if search in str(output):
                 print('Detected scene', scene)
-                handle(socket, scene)
-    handle(socket, beatoraja.Quit)
+                await handle(socket, scene)
+    await handle(socket, beatoraja.Quit)
 
-run()
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(run())
