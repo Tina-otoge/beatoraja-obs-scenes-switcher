@@ -17,6 +17,7 @@ class Quit(Scene):
     pass
     
 SCENE_MATCHES = {
+    'bms.player.beatoraja.MainController$SystemSoundManager shuffle': Select,
     'bms.player.beatoraja.SystemSoundManager shuffle': Select,
     'bms.player.beatoraja.play.BMSPlayer create': Play,
     'bms.player.beatoraja.result.MusicResult updateScoreDatabase': Result,
