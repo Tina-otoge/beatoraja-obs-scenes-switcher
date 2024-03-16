@@ -15,11 +15,11 @@ class Result(Scene):
 
 class Quit(Scene):
     pass
-
+    
 SCENE_MATCHES = {
-    'bms.player.beatoraja.MainController$SystemSoundManager shuffle': Select,
+    'bms.player.beatoraja.SystemSoundManager shuffle': Select,
     'bms.player.beatoraja.play.BMSPlayer create': Play,
-    'bms.player.beatoraja.result.MusicResult$IRSendStatus': Result,
+    'bms.player.beatoraja.MainController$IRSendStatus send': Result,
     'alc_cleanup:': Quit,
     'bms.player.beatoraja.MainController dispose': Quit,
 }
